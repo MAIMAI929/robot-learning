@@ -51,7 +51,7 @@ print(df.describe())
 X = df[["Annual_Income", "Spending_Score"]]
 # 初始化标准化器，消除量纲影响（也就是消除了单位的影响使两个标签的数据都变成单纯的数值）
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)   #fit是让机器学习特征的统计信息，transform是为了让数据标准化
+X_scaled = scaler.fit_transform(X)   #fit是让机器学习特征的统计信息，transform是为了让数据标准化，这里的fit_transform是两个函数办法fit 和transform的快捷拟合，等价于先调用fit，后调用transform
 # 转换为DataFrame便于后续操作
 X_scaled_df = pd.DataFrame(X_scaled, columns=["Scaled_Income", "Scaled_Score"])
 
@@ -63,7 +63,7 @@ k_range = range(1, 11)
 for k in k_range:
     kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)  # n_init=10确保结果稳定
     kmeans.fit(X_scaled)
-    inertia.append(kmeans.inertia_)  # 记录每个K对应的惯性值
+    inertia.append(kmeans.inertia_)  # 记录每个K对应的惯性值     这里的kmeans.inertia可以直接使用是因为inertia是KMeans聚类方法在处理数据是自己生成的属性，用来记录簇内平方和即聚散程度
 
 # 绘制肘部法则图
 plt.figure(figsize=(10, 6))
